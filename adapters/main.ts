@@ -33,17 +33,13 @@ namespace testAdapters {
                 let thisEventCount: number = this.eventCounter
                 this.state = "down_click"
 
-                modules.ledPixel1.setPixel(2, 0x010101)
-
                 control.runInParallel( () => {
                     basic.pause(AButton.clickTimeoutMs)
                     if (this.eventCounter == thisEventCount) {
                         if (this.clickCounter == 0) {
                             this.sendEvent(jacdac.ButtonGestureEvent.ClickHold)
-                            modules.ledPixel1.setPixel(2, 0xff0000)
                         } else {
                             this.sendEvent(jacdac.ButtonGestureEvent.MultiClickHold)
-                            modules.ledPixel1.setPixel(2, 0x00ff00)
                         }
 
                         this.state = "down_held"
@@ -60,13 +56,10 @@ namespace testAdapters {
 
                     if (this.clickCounter == 1) {
                         this.sendEvent(jacdac.ButtonGestureEvent.Click)
-                        modules.ledPixel1.setPixel(2, 0x404000)
                     } else if (this.clickCounter == 2) {
                         this.sendEvent(jacdac.ButtonGestureEvent.DoubleClick)
-                        modules.ledPixel1.setPixel(2, 0x004040)
                     } else {
                         this.sendEvent(jacdac.ButtonGestureEvent.MultiClick)
-                        modules.ledPixel1.setPixel(2, 0x400040)
                     }
 
                     control.runInParallel( () => {
@@ -78,15 +71,13 @@ namespace testAdapters {
                     })
                 } else if (this.state == "down_held") {
                     this.sendEvent(jacdac.ButtonGestureEvent.HoldRelease)
-                    modules.ledPixel1.setPixel(2, 0xffffff)
-
+                    
                     this.state = "up"
                     this.clickCounter = 0
                 }
             })
         }
     }
-
 
     //% fixedInstance whenUsed block="buttonDucks"
     export const buttonDucks = new testAdapters.AButton("buttonDucks", modules.button1);
