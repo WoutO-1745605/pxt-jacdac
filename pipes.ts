@@ -11,7 +11,7 @@ namespace jacdac {
             pkt.deviceIdentifier != bus.selfDevice.deviceId
         )
             return
-        const port = pkt.serviceCommand >> PORT_SHIFT
+        const port = pkt.serviceOpcode >> PORT_SHIFT
         const s = pipes.find(s => s.port == port)
         if (s) s._handle(pkt)
     }
@@ -75,7 +75,7 @@ namespace jacdac {
         meta(buf: Buffer) {}
 
         _handle(pkt: JDPacket) {
-            let cmd = pkt.serviceCommand
+            let cmd = pkt.serviceOpcode
             if ((cmd & COUNTER_MASK) != (this.nextCnt & COUNTER_MASK)) return
             this.nextCnt++
             if (cmd & CLOSE_MASK) this._close()

@@ -69,7 +69,7 @@ namespace jacdac {
         handlePacket(packet: JDPacket) {
             if (
                 this._samples &&
-                packet.serviceCommand ==
+                packet.serviceOpcode ==
                     (CMD_GET_REG | jacdac.SystemReg.Reading)
             ) {
                 const v = jdunpack(

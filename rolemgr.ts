@@ -136,7 +136,7 @@ namespace jacdac._rolemgr {
                 this.autoBind
             )
 
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case jacdac.RoleManagerReg.AllRolesAllocated | CMD_GET_REG:
                     this.sendReport(
                         JDPacket.jdpacked(

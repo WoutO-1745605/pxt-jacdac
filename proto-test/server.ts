@@ -77,7 +77,7 @@ namespace jacdac {
             )
 
             // commands
-            switch (pkt.serviceCommand) {
+            switch (pkt.serviceOpcode) {
                 case jacdac.ProtoTestCmd.CBool:
                     this.bool = jdunpack(pkt.data, "u8")[0] != 0
                     break

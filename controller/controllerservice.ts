@@ -91,7 +91,7 @@ namespace jacdac {
         handlePacket(packet: JDPacket): void {
             const address = packet.deviceIdentifier
             const data = packet.data
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case JDControllerCommand.ControlClient:
                     this.connectClient(
                         address,

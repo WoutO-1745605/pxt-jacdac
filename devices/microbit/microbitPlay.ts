@@ -54,7 +54,7 @@ namespace servers {
             if (vol !== oldVol) music.setVolume(vol)
 
             // commands
-            switch (pkt.serviceCommand) {
+            switch (pkt.serviceOpcode) {
                 case SoundPlayerCmd.Play:
                     this.handlePlayCommand(pkt)
                     break

@@ -266,7 +266,7 @@ namespace jacdac {
                 let dev = this.devices.find(d => d.deviceId == devId)
 
                 if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
-                    if (pkt.serviceCommand == SystemCmd.Announce) {
+                    if (pkt.serviceOpcode == SystemCmd.Announce) {
                         if (dev && dev.resetCount > (pkt.data[0] & 0xf)) {
                             // if the reset counter went down, it means the device reseted;
                             // treat it as new device
@@ -345,7 +345,7 @@ namespace jacdac {
         }
 
         handlePacketOuter(pkt: JDPacket) {
-            switch (pkt.serviceCommand) {
+            switch (pkt.serviceOpcode) {
                 case jacdac.SystemCmd.Announce:
                     this.handleAnnounce(pkt)
                     break
@@ -421,13 +421,13 @@ namespace jacdac {
             fmt: string,
             current: T
         ): T {
-            const getset = pkt.serviceCommand >> 12
+            const getset = pkt.serviceOpcode >> 12
             if (getset == 0 || getset > 2) return current
-            const reg = pkt.serviceCommand & 0xfff
+            const reg = pkt.serviceOpcode & 0xfff
             if (reg != register) return current
             if (getset == 1) {
                 this.sendReport(
-                    JDPacket.jdpacked(pkt.serviceCommand, fmt, current)
+                    JDPacket.jdpacked(pkt.serviceOpcode, fmt, current)
                 )
             } else {
                 if (register >> 8 == 0x1) return current // read-only
@@ -447,14 +447,14 @@ namespace jacdac {
             fmt: string,
             current: T
         ): T {
-            const getset = pkt.serviceCommand >> 12
+            const getset = pkt.serviceOpcode >> 12
             if (getset == 0 || getset > 2) return current
-            const reg = pkt.serviceCommand & 0xfff
+            const reg = pkt.serviceOpcode & 0xfff
             if (reg != register) return current
             // make sure there's no null/undefined
             if (getset == 1) {
                 this.sendReport(
-                    JDPacket.jdpacked(pkt.serviceCommand, fmt, [current])
+                    JDPacket.jdpacked(pkt.serviceOpcode, fmt, [current])
                 )
             } else {
                 if (register >> 8 == 0x1) return current // read-only
@@ -504,13 +504,13 @@ namespace jacdac {
             register: number,
             current: Buffer
         ): Buffer {
-            const getset = pkt.serviceCommand >> 12
+            const getset = pkt.serviceOpcode >> 12
             if (getset == 0 || getset > 2) return current
-            const reg = pkt.serviceCommand & 0xfff
+            const reg = pkt.serviceOpcode & 0xfff
             if (reg != register) return current
 
             if (getset == 1) {
-                this.sendReport(JDPacket.from(pkt.serviceCommand, current))
+                this.sendReport(JDPacket.from(pkt.serviceOpcode, current))
             } else {
                 if (register >> 8 == 0x1) return current // read-only
                 let data = pkt.data
@@ -572,7 +572,7 @@ namespace jacdac {
         constructor(public readonly parent: Client) {}
 
         private updateQueue(pkt: JDPacket) {
-            const cmd = pkt.serviceCommand
+            const cmd = pkt.serviceOpcode
             for (let i = 0; i < this.pkts.length; ++i) {
                 if (this.pkts[i].getNumber(NumberFormat.UInt16LE, 2) == cmd) {
                     this.pkts[i] = pkt.withFrameStripped()
@@ -766,7 +766,7 @@ namespace jacdac {
         }
 
         handlePacketOuter(pkt: JDPacket) {
-            if (pkt.serviceCommand == SystemCmd.Announce)
+            if (pkt.serviceOpcode == SystemCmd.Announce)
                 this.advertisementData = pkt.data
 
             if (pkt.isEvent) {
@@ -1129,7 +1129,7 @@ namespace jacdac {
                     : c.serviceIndex == pkt.serviceIndex
             )
             if (client) {
-                // log(`handle pkt at ${client.role} rep=${pkt.serviceCommand}`)
+                // log(`handle pkt at ${client.role} rep=${pkt.serviceOpcode}`)
                 client.currentDevice = this
                 client.handlePacketOuter(pkt)
             }
@@ -1211,7 +1211,7 @@ namespace jacdac {
                         if (productIdentifier)
                             this.sendReport(
                                 JDPacket.from(
-                                    pkt.serviceCommand,
+                                    pkt.serviceOpcode,
                                     jdpack("u32", [jacdac.productIdentifier])
                                 )
                             )
@@ -1224,7 +1224,7 @@ namespace jacdac {
                     case ControlReg.DeviceDescription: {
                         this.sendReport(
                             JDPacket.from(
-                                pkt.serviceCommand,
+                                pkt.serviceOpcode,
                                 Buffer.fromUTF8(control.programName())
                             )
                         )
@@ -1232,7 +1232,7 @@ namespace jacdac {
                     }
                 }
             } else {
-                switch (pkt.serviceCommand) {
+                switch (pkt.serviceOpcode) {
                     case SystemCmd.Announce:
                         bus.queueAnnounce()
                         break

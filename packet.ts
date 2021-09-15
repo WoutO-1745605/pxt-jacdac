@@ -50,20 +50,20 @@ namespace jacdac {
             return p
         }
 
-        static from(serviceCommand: number, data: Buffer) {
+        static from(serviceOpcode: number, data: Buffer) {
             const p = new JDPacket()
             p._header = Buffer.create(JD_SERIAL_HEADER_SIZE)
             p.data = data
-            p.serviceCommand = serviceCommand
+            p.serviceOpcode = serviceOpcode
             return p
         }
 
-        static onlyHeader(serviceCommand: number) {
-            return JDPacket.from(serviceCommand, Buffer.create(0))
+        static onlyHeader(serviceOpcode: number) {
+            return JDPacket.from(serviceOpcode, Buffer.create(0))
         }
 
-        static jdpacked(serviceCommand: number, fmt: string, nums: any[]) {
-            return JDPacket.from(serviceCommand, jdpack(fmt, nums))
+        static jdpacked(serviceOpcode: number, fmt: string, nums: any[]) {
+            return JDPacket.from(serviceOpcode, jdpack(fmt, nums))
         }
 
         static segmentData(data: Buffer) {
@@ -119,40 +119,40 @@ namespace jacdac {
             return this._header.getNumber(NumberFormat.UInt16LE, 0)
         }
 
-        get serviceCommand(): number {
+        get serviceOpcode(): number {
             return this._header.getNumber(NumberFormat.UInt16LE, 14)
         }
-        set serviceCommand(cmd: number) {
+        set serviceOpcode(cmd: number) {
             this._header.setNumber(NumberFormat.UInt16LE, 14, cmd)
         }
 
         get isEvent() {
-            return this.isReport && (this.serviceCommand & CMD_EVENT_MASK) != 0
+            return this.isReport && (this.serviceOpcode & CMD_EVENT_MASK) != 0
         }
 
         get eventCode() {
             return this.isEvent
-                ? this.serviceCommand & CMD_EVENT_CODE_MASK
+                ? this.serviceOpcode & CMD_EVENT_CODE_MASK
                 : undefined
         }
 
         get eventCounter() {
             return this.isEvent
-                ? (this.serviceCommand >> CMD_EVENT_COUNTER_POS) &
+                ? (this.serviceOpcode >> CMD_EVENT_COUNTER_POS) &
                       CMD_EVENT_COUNTER_MASK
                 : undefined
         }
 
         get isRegSet() {
-            return this.serviceCommand >> 12 == CMD_SET_REG >> 12
+            return this.serviceOpcode >> 12 == CMD_SET_REG >> 12
         }
 
         get isRegGet() {
-            return this.serviceCommand >> 12 == CMD_GET_REG >> 12
+            return this.serviceOpcode >> 12 == CMD_GET_REG >> 12
         }
 
         get regCode() {
-            return this.serviceCommand & CMD_REG_MASK
+            return this.serviceOpcode & CMD_REG_MASK
         }
 
         get data(): Buffer {
@@ -222,7 +222,7 @@ namespace jacdac {
         toString(): string {
             let msg = `${jacdac.shortDeviceId(this.deviceIdentifier)}/${
                 this.serviceIndex
-            }[${this.packetFlags}]: ${hexNum(this.serviceCommand, 4)} sz=${
+            }[${this.packetFlags}]: ${hexNum(this.serviceOpcode, 4)} sz=${
                 this.size
             }`
             if (this.size < 20) msg += ": " + this.data.toHex()
@@ -324,7 +324,7 @@ namespace jacdac {
         if (!ackAwaiters) return
         let numNotify = 0
         const srcId = pkt.deviceIdentifier
-        const crc = pkt.serviceCommand
+        const crc = pkt.serviceOpcode
         for (let a of ackAwaiters) {
             if (a.crc == crc && a.srcId == srcId) {
                 a.nextRetry = 0

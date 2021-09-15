@@ -115,7 +115,7 @@ namespace jacdac {
                 return
             }
 
-            switch (pkt.serviceCommand) {
+            switch (pkt.serviceOpcode) {
                 case jacdac.AzureIotHubHealthCmd.Connect:
                     this.connect()
                     break

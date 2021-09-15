@@ -197,7 +197,7 @@ namespace servers {
         }
 
         handlePacket(packet: jacdac.JDPacket) {
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case jacdac.HidKeyboardCmd.Clear:
                     this.handleClearCommand(packet)
                     break

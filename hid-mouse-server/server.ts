@@ -5,7 +5,7 @@ namespace servers {
         }
 
         handlePacket(packet: jacdac.JDPacket) {
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case jacdac.HidMouseCmd.SetButton:
                     this.handleSetButton(packet)
                     break

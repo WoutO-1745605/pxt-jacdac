@@ -209,7 +209,7 @@ function deviceView(d: jacdac.Device) {
             (r: jacdac.JDPacket) => {
                 if (
                     r.serviceIndex == jacdac.JD_SERVICE_INDEX_CRC_ACK &&
-                    pkt.crc == r.serviceCommand &&
+                    pkt.crc == r.serviceOpcode &&
                     r.deviceIdentifier == d.deviceId
                 )
                     noopRecv++

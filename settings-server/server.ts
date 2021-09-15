@@ -6,7 +6,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case jacdac.SettingsCmd.Delete:
                     this.handleDeleteCommand(packet)
                     break

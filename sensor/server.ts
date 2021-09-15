@@ -13,7 +13,7 @@ namespace jacdac {
         }
 
         public handlePacket(packet: JDPacket) {
-            this.log(`hpkt ${packet.serviceCommand}`)
+            this.log(`hpkt ${packet.serviceOpcode}`)
             this.stateUpdated = false
             this.streamingInterval = this.handleRegUInt32(
                 packet,
@@ -28,7 +28,7 @@ namespace jacdac {
             )
             this.setStreaming(samples)
 
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case jacdac.SystemCmd.Calibrate:
                     this.handleCalibrateCommand(packet)
                     break

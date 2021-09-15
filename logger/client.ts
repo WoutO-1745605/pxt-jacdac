@@ -25,7 +25,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            let pri = packet.serviceCommand - jacdac.LoggerCmd.Debug
+            let pri = packet.serviceOpcode - jacdac.LoggerCmd.Debug
             if (0 <= pri && pri <= jacdac.LoggerPriority.Error) {
                 if (pri < this.minPriority) return
 

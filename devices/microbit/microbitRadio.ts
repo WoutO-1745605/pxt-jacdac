@@ -148,7 +148,7 @@ namespace servers {
                 radio.setTransmitPower(this.transmissionPower)
 
             // commands
-            switch (pkt.serviceCommand) {
+            switch (pkt.serviceOpcode) {
                 case BitRadioCmd.SendBuffer:
                     this.handleSendBuffer(pkt)
                     break

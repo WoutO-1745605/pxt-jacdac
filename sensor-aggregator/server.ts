@@ -28,7 +28,7 @@ namespace jacdac {
 
         handlePacket(packet: JDPacket) {
             if (
-                packet.serviceCommand ==
+                packet.serviceOpcode ==
                 (CMD_GET_REG | jacdac.SystemReg.Reading)
             ) {
                 this.parent._newData(packet.timestamp, false)
@@ -237,10 +237,10 @@ namespace jacdac {
                 this.streamSamples
             )
 
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case jacdac.SensorAggregatorReg.Inputs | CMD_GET_REG:
                     this.sendReport(
-                        JDPacket.from(packet.serviceCommand, this.inputSettings)
+                        JDPacket.from(packet.serviceOpcode, this.inputSettings)
                     )
                     break
                 case jacdac.SensorAggregatorReg.Inputs | CMD_SET_REG:

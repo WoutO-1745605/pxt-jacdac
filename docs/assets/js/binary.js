@@ -350,7 +350,7 @@ pxtrt.mapKeyNames = [
  "serviceClass",
  "serviceClassAt",
  "serviceClassLength",
- "serviceCommand",
+ "serviceOpcode",
  "serviceIdx",
  "serviceIndex",
  "services",
@@ -9513,7 +9513,7 @@ function jacdac_Device_resetCount__P1803_mk(s) {
 
 
 
-function jacdac_JDPacket_serviceCommand__P1378(s) {
+function jacdac_JDPacket_serviceOpcode__P1378(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -9535,13 +9535,13 @@ switch (step) {
     return leaveAccessor(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_serviceCommand__P1378.info = {"start":4010,"length":109,"line":121,"column":8,"endLine":123,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"serviceCommand","argumentNames":["this"]}
-jacdac_JDPacket_serviceCommand__P1378.isGetter = true;
+jacdac_JDPacket_serviceOpcode__P1378.info = {"start":4010,"length":109,"line":121,"column":8,"endLine":123,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"serviceOpcode","argumentNames":["this"]}
+jacdac_JDPacket_serviceOpcode__P1378.isGetter = true;
 
-function jacdac_JDPacket_serviceCommand__P1378_mk(s) {
+function jacdac_JDPacket_serviceOpcode__P1378_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac_JDPacket_serviceCommand__P1378, depth: s.depth + 1,
+        parent: s, fn: jacdac_JDPacket_serviceOpcode__P1378, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -10593,7 +10593,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_jdpacked__P1366.info = {"start":2109,"length":145,"line":64,"column":8,"endLine":66,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"jdpacked","argumentNames":["serviceCommand","fmt","nums"]}
+jacdac_JDPacket_jdpacked__P1366.info = {"start":2109,"length":145,"line":64,"column":8,"endLine":66,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"jdpacked","argumentNames":["serviceOpcode","fmt","nums"]}
 
 function jacdac_JDPacket_jdpacked__P1366_mk(s) {
     checkStack(s.depth);
@@ -11370,7 +11370,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_onlyHeader__P1365.info = {"start":1979,"length":120,"line":60,"column":8,"endLine":62,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"onlyHeader","argumentNames":["serviceCommand"]}
+jacdac_JDPacket_onlyHeader__P1365.info = {"start":1979,"length":120,"line":60,"column":8,"endLine":62,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"onlyHeader","argumentNames":["serviceOpcode"]}
 
 function jacdac_JDPacket_onlyHeader__P1365_mk(s) {
     checkStack(s.depth);
@@ -12048,7 +12048,7 @@ switch (step) {
     s.callLocIdx = 501; s.pc = 2; return s.tmp_0;
   case 2:
     r0 = s.retval;
-    s.tmp_0 = jacdac_JDPacket_serviceCommand__P1379_mk(s);
+    s.tmp_0 = jacdac_JDPacket_serviceOpcode__P1379_mk(s);
     s.tmp_0.arg0 = s.p___6077;
     s.tmp_0.arg1 = s.arg0;
     s.callLocIdx = 502; s.pc = 3; return s.tmp_0;
@@ -12058,7 +12058,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_from__P1364.info = {"start":1717,"length":252,"line":52,"column":8,"endLine":58,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"from","argumentNames":["serviceCommand","data"]}
+jacdac_JDPacket_from__P1364.info = {"start":1717,"length":252,"line":52,"column":8,"endLine":58,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"from","argumentNames":["serviceOpcode","data"]}
 
 function jacdac_JDPacket_from__P1364_mk(s) {
     checkStack(s.depth);
@@ -12076,7 +12076,7 @@ function jacdac_JDPacket_from__P1364_mk(s) {
 
 
 
-function jacdac_JDPacket_serviceCommand__P1379(s) {
+function jacdac_JDPacket_serviceOpcode__P1379(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -12100,12 +12100,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_serviceCommand__P1379.info = {"start":4128,"length":110,"line":124,"column":8,"endLine":126,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"serviceCommand","argumentNames":["this","cmd"]}
+jacdac_JDPacket_serviceOpcode__P1379.info = {"start":4128,"length":110,"line":124,"column":8,"endLine":126,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"serviceOpcode","argumentNames":["this","cmd"]}
 
-function jacdac_JDPacket_serviceCommand__P1379_mk(s) {
+function jacdac_JDPacket_serviceOpcode__P1379_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac_JDPacket_serviceCommand__P1379, depth: s.depth + 1,
+        parent: s, fn: jacdac_JDPacket_serviceOpcode__P1379, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -45346,8 +45346,8 @@ const jacdac_JDPacket__C1359_VT = mkVTable({
     "serviceIndex": jacdac_JDPacket_serviceIndex__P1375,
     "set/serviceIndex": jacdac_JDPacket_serviceIndex__P1376,
     "crc": jacdac_JDPacket_crc__P1377,
-    "serviceCommand": jacdac_JDPacket_serviceCommand__P1378,
-    "set/serviceCommand": jacdac_JDPacket_serviceCommand__P1379,
+    "serviceOpcode": jacdac_JDPacket_serviceOpcode__P1378,
+    "set/serviceOpcode": jacdac_JDPacket_serviceOpcode__P1379,
     "isEvent": jacdac_JDPacket_isEvent__P1380,
     "eventCode": jacdac_JDPacket_eventCode__P1381,
     "eventCounter": jacdac_JDPacket_eventCounter__P1382,

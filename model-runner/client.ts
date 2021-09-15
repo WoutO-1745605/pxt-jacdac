@@ -33,7 +33,7 @@ namespace jacdac {
 
         handlePacket(pkt: JDPacket) {
             if (
-                pkt.serviceCommand ==
+                pkt.serviceOpcode ==
                 (jacdac.ModelRunnerReg.Outputs | CMD_GET_REG)
             ) {
                 const scores = unpackArray(pkt.data, NumberFormat.Float32LE)

@@ -17,7 +17,7 @@ namespace jacdac {
             )
             // TODO: is this a command?
             const SetMinPriority = 0x2000 | jacdac.LoggerReg.MinPriority
-            switch (packet.serviceCommand) {
+            switch (packet.serviceOpcode) {
                 case SetMinPriority: {
                     const now = control.millis()
                     // lower the priority immediately, but tighten it only when no one

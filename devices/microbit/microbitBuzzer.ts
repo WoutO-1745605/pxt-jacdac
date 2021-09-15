@@ -48,7 +48,7 @@ namespace servers {
             if (vol !== oldVol) music.setVolume(vol)
 
             // commands
-            switch (pkt.serviceCommand) {
+            switch (pkt.serviceOpcode) {
                 case BuzzerCmd.PlayTone:
                     this.handlePlayToneCommand(pkt)
                     break
