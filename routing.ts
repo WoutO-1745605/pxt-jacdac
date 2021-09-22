@@ -126,7 +126,7 @@ namespace jacdac {
             const buf = Buffer.create(ids.length * 4)
             for (let i = 0; i < ids.length; ++i)
                 buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i])
-            JDPacket.from(SystemCmd.Announce, buf)._sendReport(this.selfDevice)
+            JDPacket.from(SystemOpcode.Announce, buf)._sendReport(this.selfDevice)
             this.emit(SELF_ANNOUNCE)
             for (const cl of this.allClients) cl.announceCallback()
             this.gcDevices()
@@ -266,7 +266,7 @@ namespace jacdac {
                 let dev = this.devices.find(d => d.deviceId == devId)
 
                 if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
-                    if (pkt.serviceOpcode == SystemCmd.Announce) {
+                    if (pkt.serviceOpcode == SystemOpcode.Announce) {
                         if (dev && dev.resetCount > (pkt.data[0] & 0xf)) {
                             // if the reset counter went down, it means the device reseted;
                             // treat it as new device
@@ -346,13 +346,13 @@ namespace jacdac {
 
         handlePacketOuter(pkt: JDPacket) {
             switch (pkt.serviceOpcode) {
-                case jacdac.SystemCmd.Announce:
+                case jacdac.SystemOpcode.Announce:
                     this.handleAnnounce(pkt)
                     break
-                case SystemReg.StatusCode | SystemCmd.GetRegister:
+                case SystemReg.StatusCode | SystemOpcode.GetRegister:
                     this.handleStatusCode(pkt)
                     break
-                case SystemReg.InstanceName | SystemCmd.GetRegister:
+                case SystemReg.InstanceName | SystemOpcode.GetRegister:
                     this.handleInstanceName(pkt)
                     break
                 default:
@@ -396,7 +396,7 @@ namespace jacdac {
         private handleAnnounce(pkt: JDPacket) {
             this.sendReport(
                 JDPacket.from(
-                    jacdac.SystemCmd.Announce,
+                    jacdac.SystemOpcode.Announce,
                     this.advertisementData()
                 )
             )
@@ -762,11 +762,11 @@ namespace jacdac {
         }
 
         requestAdvertisementData() {
-            this.sendCommand(JDPacket.onlyHeader(SystemCmd.Announce))
+            this.sendCommand(JDPacket.onlyHeader(SystemOpcode.Announce))
         }
 
         handlePacketOuter(pkt: JDPacket) {
-            if (pkt.serviceOpcode == SystemCmd.Announce)
+            if (pkt.serviceOpcode == SystemOpcode.Announce)
                 this.advertisementData = pkt.data
 
             if (pkt.isEvent) {
@@ -1233,7 +1233,7 @@ namespace jacdac {
                 }
             } else {
                 switch (pkt.serviceOpcode) {
-                    case SystemCmd.Announce:
+                    case SystemOpcode.Announce:
                         bus.queueAnnounce()
                         break
                     case ControlCmd.Identify:

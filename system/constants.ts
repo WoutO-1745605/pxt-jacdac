@@ -18,7 +18,7 @@ namespace jacdac {
         CalibrationNeeded = 0x64,
     }
 
-    export const enum SystemCmd {
+    export const enum SystemOpcode {
         /**
          * No args. Enumeration data for control service; service-specific advertisement data otherwise.
          * Control broadcasts it automatically every ``announce_interval``ms, but other service have to be queried to provide it.

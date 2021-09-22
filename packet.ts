@@ -122,8 +122,8 @@ namespace jacdac {
         get serviceOpcode(): number {
             return this._header.getNumber(NumberFormat.UInt16LE, 14)
         }
-        set serviceOpcode(cmd: number) {
-            this._header.setNumber(NumberFormat.UInt16LE, 14, cmd)
+        set serviceOpcode(opcode: number) {
+            this._header.setNumber(NumberFormat.UInt16LE, 14, opcode)
         }
 
         get isEvent() {

@@ -29,7 +29,7 @@ namespace jacdac {
             this.setStreaming(samples)
 
             switch (packet.serviceOpcode) {
-                case jacdac.SystemCmd.Calibrate:
+                case jacdac.SystemOpcode.Calibrate:
                     this.handleCalibrateCommand(packet)
                     break
                 default:

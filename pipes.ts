@@ -75,11 +75,11 @@ namespace jacdac {
         meta(buf: Buffer) {}
 
         _handle(pkt: JDPacket) {
-            let cmd = pkt.serviceOpcode
-            if ((cmd & COUNTER_MASK) != (this.nextCnt & COUNTER_MASK)) return
+            let opcode = pkt.serviceOpcode
+            if ((opcode & COUNTER_MASK) != (this.nextCnt & COUNTER_MASK)) return
             this.nextCnt++
-            if (cmd & CLOSE_MASK) this._close()
-            if (cmd & METADATA_MASK) {
+            if (opcode & CLOSE_MASK) this._close()
+            if (opcode & METADATA_MASK) {
                 this.meta(pkt.data)
             } else {
                 this.inQ.push(pkt.data)
