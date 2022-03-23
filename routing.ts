@@ -173,6 +173,15 @@ namespace jacdac {
             this.unattachedClients.push(client)
             this.allClients.push(client)
             this.clearAttachCache()
+            // find matching dev, if so, reattach
+            const devs = this.devices
+            for(let i = 0; i < devs.length; ++i) {
+                const dev = devs[i]
+                if (dev.deviceId === client.role) {
+                    this.reattach(dev)
+                    break
+                }
+            }
         }
 
         destroyClient(client: Client) {
@@ -750,7 +759,7 @@ namespace jacdac {
         protected readonly config: ClientPacketQueue
         private readonly registers: RegisterClient<PackSimpleDataType[]>[] = []
 
-        constructor(public readonly serviceClass: number, public role: string) {
+        constructor(public readonly serviceClass: number, public readonly role: string) {
             super()
             this.eventId = control.allocateNotifyEvent()
             this.config = new ClientPacketQueue(this)
