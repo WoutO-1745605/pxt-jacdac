@@ -19,7 +19,7 @@ namespace modules {
     
 
         /**
-        * Determins if the braille display is active.
+        * Determines if the braille display is active.
         */
         //% callInDebugger
         //% group="Display"
