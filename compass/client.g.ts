@@ -26,7 +26,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Compass"
-        //% block="%compass heading"
+        //% block="%compass heading (°)"
         //% blockId=jacdac_compass_heading___get
         //% weight=100
         heading(): number {
@@ -78,7 +78,7 @@ namespace modules {
          */
         //% group="Compass"
         //% blockId=jacdac_compass_on_heading_change
-        //% block="on %compass heading changed by %threshold"
+        //% block="on %compass heading changed by %threshold (°)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=359
@@ -101,6 +101,7 @@ namespace modules {
             )
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="compass1"
     export const compass1 = new CompassClient("compass1")
 }

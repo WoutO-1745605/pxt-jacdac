@@ -44,7 +44,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Distance"
-        //% block="%distance distance"
+        //% block="%distance distance (m)"
         //% blockId=jacdac_distance_distance___get
         //% weight=100
         distance(): number {
@@ -104,7 +104,7 @@ namespace modules {
          */
         //% group="Distance"
         //% blockId=jacdac_distance_on_distance_change
-        //% block="on %distance distance changed by %threshold"
+        //% block="on %distance distance changed by %threshold (m)"
         //% weight=95
         //% threshold.min=0
         //% threshold.max=4
@@ -113,6 +113,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="distance1"
     export const distance1 = new DistanceClient("distance1")
 }

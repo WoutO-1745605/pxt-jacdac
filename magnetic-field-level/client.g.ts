@@ -36,7 +36,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%magneticfieldlevel strength"
+        //% block="%magneticfieldlevel strength (\\%)"
         //% blockId=jacdac_magneticfieldlevel_strength___get
         //% weight=100
         strength(): number {
@@ -73,7 +73,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_magneticfieldlevel_on_strength_change
-        //% block="on %magneticfieldlevel strength changed by %threshold"
+        //% block="on %magneticfieldlevel strength changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100
@@ -110,8 +110,14 @@ namespace modules {
             this.registerEvent(jacdac.MagneticFieldLevelEvent.Inactive, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="magnetic field level1"
     export const magneticFieldLevel1 = new MagneticFieldLevelClient(
         "magnetic Field Level1"
+    )
+
+    //% fixedInstance whenUsed weight=2 block="magnetic field level2"
+    export const magneticFieldLevel2 = new MagneticFieldLevelClient(
+        "magnetic Field Level2"
     )
 }

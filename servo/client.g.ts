@@ -71,7 +71,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Servo"
-        //% block="%servo angle"
+        //% block="%servo angle (°)"
         //% blockId=jacdac_servo_angle___get
         //% weight=100
         angle(): number {
@@ -85,7 +85,7 @@ namespace modules {
          */
         //% group="Servo"
         //% blockId=jacdac_servo_angle___set
-        //% block="set %servo angle to %value"
+        //% block="set %servo angle to %value (°)"
         //% weight=99
         //% value.min=0
         //% value.max=180
@@ -256,7 +256,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Servo"
-        //% block="%servo actual angle"
+        //% block="%servo actual angle (°)"
         //% blockId=jacdac_servo_actual_angle___get
         //% weight=86
         actualAngle(): number {
@@ -268,7 +268,7 @@ namespace modules {
          */
         //% group="Servo"
         //% blockId=jacdac_servo_on_actual_angle_change
-        //% block="on %servo actual angle changed by %threshold"
+        //% block="on %servo actual angle changed by %threshold (°)"
         //% weight=85
         //% threshold.min=0
         //% threshold.defl=1
@@ -276,6 +276,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="servo1"
     export const servo1 = new ServoClient("servo1")
 }

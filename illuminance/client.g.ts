@@ -27,7 +27,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%illuminance illuminance"
+        //% block="%illuminance illuminance (lux)"
         //% blockId=jacdac_illuminance_illuminance___get
         //% weight=100
         illuminance(): number {
@@ -51,7 +51,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_illuminance_on_illuminance_change
-        //% block="on %illuminance illuminance changed by %threshold"
+        //% block="on %illuminance illuminance changed by %threshold (lux)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100000
@@ -60,6 +60,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="illuminance1"
     export const illuminance1 = new IlluminanceClient("illuminance1")
 }

@@ -33,7 +33,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%humidity humidity"
+        //% block="%humidity humidity (%RH)"
         //% blockId=jacdac_humidity_humidity___get
         //% weight=100
         humidity(): number {
@@ -81,7 +81,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_humidity_on_humidity_change
-        //% block="on %humidity humidity changed by %threshold"
+        //% block="on %humidity humidity changed by %threshold (%RH)"
         //% weight=96
         //% threshold.min=0
         //% threshold.defl=1
@@ -89,6 +89,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="humidity1"
     export const humidity1 = new HumidityClient("humidity1")
 }

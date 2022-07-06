@@ -34,7 +34,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%lightlevel light level"
+        //% block="%lightlevel light level (\\%)"
         //% blockId=jacdac_lightlevel_light_level___get
         //% weight=100
         lightLevel(): number {
@@ -70,7 +70,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_lightlevel_on_light_level_change
-        //% block="on %lightlevel light level changed by %threshold"
+        //% block="on %lightlevel light level changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100
@@ -79,6 +79,10 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="light level1"
     export const lightLevel1 = new LightLevelClient("light Level1")
+
+    //% fixedInstance whenUsed weight=2 block="light level2"
+    export const lightLevel2 = new LightLevelClient("light Level2")
 }

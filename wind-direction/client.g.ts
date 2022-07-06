@@ -25,7 +25,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%winddirection wind direction"
+        //% block="%winddirection wind direction (°)"
         //% blockId=jacdac_winddirection_wind_direction___get
         //% weight=100
         windDirection(): number {
@@ -49,7 +49,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_winddirection_on_wind_direction_change
-        //% block="on %winddirection wind direction changed by %threshold"
+        //% block="on %winddirection wind direction changed by %threshold (°)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=359
@@ -58,6 +58,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="wind direction1"
     export const windDirection1 = new WindDirectionClient("wind Direction1")
 }

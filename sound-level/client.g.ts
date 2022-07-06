@@ -24,7 +24,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Sound"
-        //% block="%soundlevel sound level"
+        //% block="%soundlevel sound level (\\%)"
         //% blockId=jacdac_soundlevel_sound_level___get
         //% weight=100
         soundLevel(): number {
@@ -64,7 +64,7 @@ namespace modules {
          */
         //% group="Sound"
         //% blockId=jacdac_soundlevel_on_sound_level_change
-        //% block="on %soundlevel sound level changed by %threshold"
+        //% block="on %soundlevel sound level changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100
@@ -73,6 +73,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="sound level1"
     export const soundLevel1 = new SoundLevelClient("sound Level1")
 }

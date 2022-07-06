@@ -46,7 +46,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%temperature temperature"
+        //% block="%temperature temperature (°C)"
         //% blockId=jacdac_temperature_temperature___get
         //% weight=100
         temperature(): number {
@@ -106,7 +106,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_temperature_on_temperature_change
-        //% block="on %temperature temperature changed by %threshold"
+        //% block="on %temperature temperature changed by %threshold (°C)"
         //% weight=95
         //% threshold.min=0
         //% threshold.defl=1
@@ -114,6 +114,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="temperature1"
     export const temperature1 = new TemperatureClient("temperature1")
 }

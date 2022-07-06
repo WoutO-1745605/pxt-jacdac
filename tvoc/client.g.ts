@@ -33,7 +33,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%tvoc TVOC"
+        //% block="%tvoc TVOC (ppb)"
         //% blockId=jacdac_tvoc_TVOC___get
         //% weight=100
         tVOC(): number {
@@ -81,7 +81,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_tvoc_on_TVOC_change
-        //% block="on %tvoc TVOC changed by %threshold"
+        //% block="on %tvoc TVOC changed by %threshold (ppb)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=1187
@@ -90,6 +90,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="tvoc1"
     export const tvoc1 = new TvocClient("tvoc1")
 }

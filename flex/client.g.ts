@@ -22,7 +22,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Sensor"
-        //% block="%flex bending"
+        //% block="%flex bending (\\%)"
         //% blockId=jacdac_flex_bending___get
         //% weight=100
         bending(): number {
@@ -46,7 +46,7 @@ namespace modules {
          */
         //% group="Sensor"
         //% blockId=jacdac_flex_on_bending_change
-        //% block="on %flex bending changed by %threshold"
+        //% block="on %flex bending changed by %threshold (\\%)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100
@@ -55,6 +55,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="flex1"
     export const flex1 = new FlexClient("flex1")
 }

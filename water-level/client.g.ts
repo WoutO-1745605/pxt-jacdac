@@ -30,7 +30,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Water level"
-        //% block="%waterlevel level"
+        //% block="%waterlevel level (\\%)"
         //% blockId=jacdac_waterlevel_level___get
         //% weight=100
         level(): number {
@@ -66,7 +66,7 @@ namespace modules {
          */
         //% group="Water level"
         //% blockId=jacdac_waterlevel_on_level_change
-        //% block="on %waterlevel level changed by %threshold"
+        //% block="on %waterlevel level changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100
@@ -75,6 +75,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="water level1"
     export const waterLevel1 = new WaterLevelClient("water Level1")
 }

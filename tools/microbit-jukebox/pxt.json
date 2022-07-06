@@ -1,6 +1,6 @@
 {
-    "name": "jacdac-microbit-machine",
-    "version": "0.10.28",
+    "name": "jacdac-microbit-jukebox",
+    "version": "1.8.16",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -19,6 +19,7 @@
         "jacdac-temperature": "github:microsoft/pxt-jacdac/temperature",
         "jacdac-humidity": "github:microsoft/pxt-jacdac/humidity",
         "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
+        "jacdac-magnetic-field-level": "github:microsoft/pxt-jacdac/magnetic-field-level",
         "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
         "jacdac-gamepad": "github:microsoft/pxt-jacdac/gamepad",
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse",
@@ -36,6 +37,8 @@
         "humidity.ts",
         "led.ts",
         "potentiometer.ts",
+        "magneticfieldlevel.ts",
+        "lightlevel.ts",
         "relay.ts",
         "rotaryencoder.ts",
         "servo.ts",

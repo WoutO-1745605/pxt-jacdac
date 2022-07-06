@@ -38,7 +38,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%airqualityindex aqi index"
+        //% block="%airqualityindex aqi index (AQI)"
         //% blockId=jacdac_airqualityindex_aqi_index___get
         //% weight=100
         aqiIndex(): number {
@@ -86,7 +86,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_airqualityindex_on_aqi_index_change
-        //% block="on %airqualityindex aqi index changed by %threshold"
+        //% block="on %airqualityindex aqi index changed by %threshold (AQI)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=500
@@ -95,6 +95,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="air quality index1"
     export const airQualityIndex1 = new AirQualityIndexClient(
         "air Quality Index1"

@@ -25,7 +25,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%airpressure pressure"
+        //% block="%airpressure pressure (hPa)"
         //% blockId=jacdac_airpressure_pressure___get
         //% weight=100
         pressure(): number {
@@ -49,7 +49,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_airpressure_on_pressure_change
-        //% block="on %airpressure pressure changed by %threshold"
+        //% block="on %airpressure pressure changed by %threshold (hPa)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=1040
@@ -58,6 +58,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="air pressure1"
     export const airPressure1 = new AirPressureClient("air Pressure1")
 }

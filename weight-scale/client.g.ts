@@ -67,7 +67,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Weight Scale"
-        //% block="%weightscale weight"
+        //% block="%weightscale weight (kg)"
         //% blockId=jacdac_weightscale_weight___get
         //% weight=100
         weight(): number {
@@ -189,7 +189,7 @@ namespace modules {
          */
         //% group="Weight Scale"
         //% blockId=jacdac_weightscale_on_weight_change
-        //% block="on %weightscale weight changed by %threshold"
+        //% block="on %weightscale weight changed by %threshold (kg)"
         //% weight=90
         //% threshold.min=0
         //% threshold.defl=1
@@ -231,6 +231,7 @@ namespace modules {
             )
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="weight scale1"
     export const weightScale1 = new WeightScaleClient("weight Scale1")
 }

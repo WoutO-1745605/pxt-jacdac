@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Slider"
-        //% block="%potentiometer position"
+        //% block="%potentiometer position (\\%)"
         //% blockId=jacdac_potentiometer_position___get
         //% weight=100
         position(): number {
@@ -52,7 +52,7 @@ namespace modules {
          */
         //% group="Slider"
         //% blockId=jacdac_potentiometer_on_position_change
-        //% block="on %potentiometer position changed by %threshold"
+        //% block="on %potentiometer position changed by %threshold (\\%)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100
@@ -61,6 +61,10 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="potentiometer1"
     export const potentiometer1 = new PotentiometerClient("potentiometer1")
+
+    //% fixedInstance whenUsed weight=2 block="potentiometer2"
+    export const potentiometer2 = new PotentiometerClient("potentiometer2")
 }

@@ -59,7 +59,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="DC Voltage Measurement"
-        //% block="%dcvoltagemeasurement measurement"
+        //% block="%dcvoltagemeasurement measurement (V)"
         //% blockId=jacdac_dcvoltagemeasurement_measurement___get
         //% weight=98
         measurement(): number {
@@ -71,7 +71,7 @@ namespace modules {
          */
         //% group="DC Voltage Measurement"
         //% blockId=jacdac_dcvoltagemeasurement_on_measurement_change
-        //% block="on %dcvoltagemeasurement measurement changed by %threshold"
+        //% block="on %dcvoltagemeasurement measurement changed by %threshold (V)"
         //% weight=97
         //% threshold.min=0
         //% threshold.defl=1
@@ -79,6 +79,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="dc voltage measurement1"
     export const dcVoltageMeasurement1 = new DcVoltageMeasurementClient(
         "dc Voltage Measurement1"

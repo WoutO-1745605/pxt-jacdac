@@ -37,7 +37,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="DC Current Measurement"
-        //% block="%dccurrentmeasurement measurement"
+        //% block="%dccurrentmeasurement measurement (A)"
         //% blockId=jacdac_dccurrentmeasurement_measurement___get
         //% weight=99
         measurement(): number {
@@ -49,7 +49,7 @@ namespace modules {
          */
         //% group="DC Current Measurement"
         //% blockId=jacdac_dccurrentmeasurement_on_measurement_change
-        //% block="on %dccurrentmeasurement measurement changed by %threshold"
+        //% block="on %dccurrentmeasurement measurement changed by %threshold (A)"
         //% weight=98
         //% threshold.min=0
         //% threshold.defl=1
@@ -57,6 +57,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="dc current measurement1"
     export const dcCurrentMeasurement1 = new DcCurrentMeasurementClient(
         "dc Current Measurement1"

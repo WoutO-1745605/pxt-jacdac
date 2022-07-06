@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%raingauge precipitation"
+        //% block="%raingauge precipitation (mm)"
         //% blockId=jacdac_raingauge_precipitation___get
         //% weight=100
         precipitation(): number {
@@ -53,7 +53,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_raingauge_on_precipitation_change
-        //% block="on %raingauge precipitation changed by %threshold"
+        //% block="on %raingauge precipitation changed by %threshold (mm)"
         //% weight=98
         //% threshold.min=0
         //% threshold.defl=1
@@ -61,6 +61,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="rain gauge1"
     export const rainGauge1 = new RainGaugeClient("rain Gauge1")
 }

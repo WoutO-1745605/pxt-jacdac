@@ -139,7 +139,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Power"
-        //% block="%power current draw"
+        //% block="%power current draw (mA)"
         //% blockId=jacdac_power_current_draw___get
         //% weight=95
         currentDraw(): number {
@@ -250,7 +250,7 @@ namespace modules {
          */
         //% group="Power"
         //% blockId=jacdac_power_on_current_draw_change
-        //% block="on %power current draw changed by %threshold"
+        //% block="on %power current draw changed by %threshold (mA)"
         //% weight=87
         //% threshold.min=0
         //% threshold.max=65535
@@ -293,6 +293,7 @@ namespace modules {
             )
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="power1"
     export const power1 = new PowerClient("power1")
 }

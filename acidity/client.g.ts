@@ -35,7 +35,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%acidity acidity"
+        //% block="%acidity acidity (pH)"
         //% blockId=jacdac_acidity_acidity___get
         //% weight=100
         acidity(): number {
@@ -83,7 +83,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_acidity_on_acidity_change
-        //% block="on %acidity acidity changed by %threshold"
+        //% block="on %acidity acidity changed by %threshold (pH)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=10.5
@@ -92,6 +92,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="acidity1"
     export const acidity1 = new AcidityClient("acidity1")
 }

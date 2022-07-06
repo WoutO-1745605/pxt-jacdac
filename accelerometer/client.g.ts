@@ -38,7 +38,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Movement"
-        //% block="%accelerometer x"
+        //% block="%accelerometer x (g)"
         //% blockId=jacdac_accelerometer_forces_x_get
         //% weight=100
         x(): number {
@@ -52,7 +52,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Movement"
-        //% block="%accelerometer y"
+        //% block="%accelerometer y (g)"
         //% blockId=jacdac_accelerometer_forces_y_get
         //% weight=99
         y(): number {
@@ -66,7 +66,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Movement"
-        //% block="%accelerometer z"
+        //% block="%accelerometer z (g)"
         //% blockId=jacdac_accelerometer_forces_z_get
         //% weight=98
         z(): number {
@@ -233,6 +233,7 @@ namespace modules {
             this.registerEvent(jacdac.AccelerometerEvent.Force8g, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="accelerometer1"
     export const accelerometer1 = new AccelerometerClient("accelerometer1")
 }

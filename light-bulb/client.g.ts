@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Light"
-        //% block="%lightbulb brightness"
+        //% block="%lightbulb brightness (\\%)"
         //% blockId=jacdac_lightbulb_brightness___get
         //% weight=100
         brightness(): number {
@@ -43,7 +43,7 @@ namespace modules {
          */
         //% group="Light"
         //% blockId=jacdac_lightbulb_brightness___set
-        //% block="set %lightbulb brightness to %value"
+        //% block="set %lightbulb brightness to %value (\\%)"
         //% weight=99
         //% value.min=0
         //% value.max=100
@@ -67,6 +67,7 @@ namespace modules {
             return !!values[0]
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="light bulb1"
     export const lightBulb1 = new LightBulbClient("light Bulb1")
 }

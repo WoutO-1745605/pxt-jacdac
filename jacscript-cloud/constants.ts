@@ -23,21 +23,13 @@ namespace jacdac {
         Upload = 0x80,
 
         /**
-         * Argument: path string (bytes). Get a numeric field from the current device twin.
-         * Path is dot-separated.
+         * Argument: payload bytes. Upload a binary message to the cloud.
          *
          * ```
-         * const [path] = jdunpack<[string]>(buf, "s")
+         * const [payload] = jdunpack<[Buffer]>(buf, "b")
          * ```
          */
-        GetTwin = 0x81,
-
-        /**
-         * report GetTwin
-         * ```
-         * const [path, value] = jdunpack<[string, number]>(buf, "z f64")
-         * ```
-         */
+        UploadBin = 0x81,
 
         /**
          * Should be called by jacscript when it finishes handling a `cloud_command`.
@@ -56,14 +48,9 @@ namespace jacdac {
         export const Upload = "z r: f64"
 
         /**
-         * Pack format for 'get_twin' register data.
+         * Pack format for 'upload_bin' register data.
          */
-        export const GetTwin = "s"
-
-        /**
-         * Pack format for 'get_twin' register data.
-         */
-        export const GetTwinReport = "z f64"
+        export const UploadBin = "b"
 
         /**
          * Pack format for 'ack_cloud_command' register data.
@@ -81,6 +68,16 @@ namespace jacdac {
          * ```
          */
         Connected = 0x180,
+
+        /**
+         * Read-only string (bytes). User-friendly name of the connection, typically includes name of the server
+         * and/or type of cloud service (`"something.cloud.net (Provider IoT)"`).
+         *
+         * ```
+         * const [connectionName] = jdunpack<[string]>(buf, "s")
+         * ```
+         */
+        ConnectionName = 0x181,
     }
 
     export namespace JacscriptCloudRegPack {
@@ -88,6 +85,11 @@ namespace jacdac {
          * Pack format for 'connected' register data.
          */
         export const Connected = "u8"
+
+        /**
+         * Pack format for 'connection_name' register data.
+         */
+        export const ConnectionName = "s"
     }
 
     export const enum JacscriptCloudEvent {
@@ -102,10 +104,10 @@ namespace jacdac {
         CloudCommand = 0x81,
 
         /**
-         * Emitted whenever any of the twin properties change.
+         * Emitted when we connect or disconnect from the cloud.
          */
-        //% block="twin change"
-        TwinChange = 0x3,
+        //% block="change"
+        Change = 0x3,
     }
 
     export namespace JacscriptCloudEventPack {

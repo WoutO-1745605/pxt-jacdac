@@ -32,7 +32,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%windspeed wind speed"
+        //% block="%windspeed wind speed (m/s)"
         //% blockId=jacdac_windspeed_wind_speed___get
         //% weight=100
         windSpeed(): number {
@@ -68,7 +68,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_windspeed_on_wind_speed_change
-        //% block="on %windspeed wind speed changed by %threshold"
+        //% block="on %windspeed wind speed changed by %threshold (m/s)"
         //% weight=97
         //% threshold.min=0
         //% threshold.defl=1
@@ -76,6 +76,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="wind speed1"
     export const windSpeed1 = new WindSpeedClient("wind Speed1")
 }

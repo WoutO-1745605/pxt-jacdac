@@ -13,7 +13,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%color red"
+        //% block="%color red (\\%)"
         //% blockId=jacdac_color_color_red_get
         //% weight=100
         red(): number {
@@ -27,7 +27,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%color green"
+        //% block="%color green (\\%)"
         //% blockId=jacdac_color_color_green_get
         //% weight=99
         green(): number {
@@ -41,7 +41,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%color blue"
+        //% block="%color blue (\\%)"
         //% blockId=jacdac_color_color_blue_get
         //% weight=98
         blue(): number {
@@ -50,6 +50,7 @@ namespace modules {
             return values[2] * 100
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="color1"
     export const color1 = new ColorClient("color1")
 }

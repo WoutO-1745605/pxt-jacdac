@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%reflectedlight brightness"
+        //% block="%reflectedlight brightness (\\%)"
         //% blockId=jacdac_reflectedlight_brightness___get
         //% weight=100
         brightness(): number {
@@ -52,7 +52,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_reflectedlight_on_brightness_change
-        //% block="on %reflectedlight brightness changed by %threshold"
+        //% block="on %reflectedlight brightness changed by %threshold (\\%)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100
@@ -61,6 +61,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="reflected light1"
     export const reflectedLight1 = new ReflectedLightClient("reflected Light1")
 }

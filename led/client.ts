@@ -85,7 +85,7 @@ namespace modules {
          * At `0` the power to the strip is completely shut down.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% block="%led brightness"
         //% blockId=jacdac_led_brightness___get
         //% weight=98
@@ -99,7 +99,7 @@ namespace modules {
          * Set the luminosity of the strip.
          * At `0` the power to the strip is completely shut down.
          */
-        //% group="Light"
+        //% group="LED"
         //% blockId=jacdac_led_brightness___set
         //% block="set %led brightness to %value"
         //% weight=97
@@ -119,7 +119,7 @@ namespace modules {
          * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=96
         actualBrightness(): number {
             this.start()
@@ -131,8 +131,10 @@ namespace modules {
          * Specifies the number of pixels in the strip.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=95
+        //% blockId=jacdac_led_num_pixels
+        //% block="%led number of pixels"
         numPixels(): number {
             this.start()
             const values = this._numPixels.pauseUntilValues() as any[]
@@ -143,7 +145,7 @@ namespace modules {
          * If the LED pixel strip is a matrix, specifies the number of columns.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=94
         numColumns(): number {
             this.start()
@@ -155,7 +157,7 @@ namespace modules {
          * Limit the power drawn by the light-strip (and controller).
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=93
         maxPower(): number {
             this.start()
@@ -166,7 +168,7 @@ namespace modules {
         /**
          * Limit the power drawn by the light-strip (and controller).
          */
-        //% group="Light"
+        //% group="LED"
         //% weight=92
         //% value.min=0
         //% value.max=65535
@@ -183,7 +185,7 @@ namespace modules {
          * The actual number of LEDs is `num_pixels * leds_per_pixel`.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=91
         ledsPerPixel(): number {
             this.start()
@@ -196,7 +198,7 @@ namespace modules {
          * Register is missing for RGB LEDs.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=90
         waveLength(): number {
             this.start()
@@ -208,7 +210,7 @@ namespace modules {
          * The luminous intensity of all the LEDs, at full brightness, in micro candella.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=89
         luminousIntensity(): number {
             this.start()
@@ -220,7 +222,7 @@ namespace modules {
          * Specifies the shape of the light strip.
          */
         //% callInDebugger
-        //% group="Light"
+        //% group="LED"
         //% weight=88
         variant(): jacdac.LedVariant {
             this.start()
@@ -232,7 +234,7 @@ namespace modules {
          * Gets the pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
          */
         //% callInDebugger
-        //% group="LED Display"
+        //% group="LED"
         //% weight=98
         pixels(): Buffer {
             this.start()
@@ -244,7 +246,7 @@ namespace modules {
          * Sets the local pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
          */
         //% callInDebugger
-        //% group="LED Display"
+        //% group="LED"
         //% weight=98
         setPixels(pixels: Buffer) {
             if (!pixels) return
@@ -291,7 +293,7 @@ namespace modules {
          * Sends the local pixel buffer to device immediately, instead of waiting for the rendering loop
          */
         //% callInDebugger
-        //% group="LED Display"
+        //% group="LED"
         //% weight=98
         show() {
             this.start()
@@ -311,9 +313,9 @@ namespace modules {
          * You need to call ``show`` to make the changes visible.
          * @param rgb RGB color of the LED
          */
-        //% blockId="jacdac_leddisplay_set_pixel_color" block="set %display color at %index pixels to %rgb=colorNumberPicker"
+        //% blockId="jacdac_leddisplay_set_pixel_color" block="set %display color at pixel %index to %rgb=colorNumberPicker"
         //% weight=81 blockGap=8
-        //% group="LED Display"
+        //% group="LED"
         setPixelColor(index: number, rgb: number) {
             index = index | 0
             const pixels = this._localPixels
@@ -338,12 +340,11 @@ namespace modules {
 
         /**
          * Set all of the pixels on the strip to one RGB color.
-         * You need to call ``show`` to make the changes visible.
          * @param rgb RGB color of the LED
          */
-        //% blockId="jacdac_leddisplay_set_strip_color" block="set %display all pixels to %rgb=colorNumberPicker"
+        //% blockId="jacdac_leddisplay_set_strip_color" block="set %display all to %rgb=colorNumberPicker"
         //% weight=80 blockGap=8
-        //% group="LED Display"
+        //% group="LED"
         setAll(rgb: number) {
             const pixels = this._localPixels
             if (!pixels) return
@@ -364,6 +365,57 @@ namespace modules {
             if (dirty) this.setDirty()
         }
 
+        private _barGraphHigh = 0
+        private _barGraphHighLast = 0
+        /**
+         * Displays a vertical bar graph based on the `value` and `high` value.
+         * If `high` is 0, the chart gets adjusted automatically.
+         * @param value current value to plot
+         * @param high maximum value, eg: 255
+         */
+        //% weight=84
+        //% blockId=jacdac_led_show_bar_graph block="plot %strip bar graph of $value||up to $high"
+        plotBarGraph(value: number, high?: number): void {
+            if (isNaN(value)) {
+                this.clear()
+                this.setDirty()
+                return
+            }
+
+            const n = this.numPixels()
+            const pixels = this._localPixels
+            if (!pixels || n <= 0) return
+
+            value = Math.abs(value)
+            const now = control.millis()
+            // auto-scale "high" is not provided
+            if (high > 0) {
+                this._barGraphHigh = high
+            } else if (
+                value > this._barGraphHigh ||
+                now - this._barGraphHighLast > 10000
+            ) {
+                this._barGraphHigh = value
+                this._barGraphHighLast = now
+            }
+
+            // normalize lack of data to 0..1
+            if (this._barGraphHigh < 16 * Number.EPSILON) this._barGraphHigh = 1
+
+            // normalize value to 0..1
+            const v = value / this._barGraphHigh
+            const dv = 1 / n
+            const n1 = n - 1
+            this.clear()
+            for (let cv = 0, i = 0; cv < v && i < n; ++i) {
+                const b = Math.idiv(i * 0xff, n - 1)
+                pixels[i * 3] = b
+                pixels[i * 3 + 2] = 0xff - b
+                cv += dv
+            }
+            this.setDirty()
+        }
+
         /**
          * Shift LEDs forward and clear with zeros.
          * You need to call ``show`` to make the changes visible.
@@ -371,7 +423,7 @@ namespace modules {
          */
         //% blockId="jacdac_leddisplay_shift" block="shift %display pixels by %offset" blockGap=8
         //% weight=40
-        //% group="LED Display"
+        //% group="LED"
         shift(offset = 1): void {
             offset = offset >> 0
             if (!offset) return
@@ -389,7 +441,6 @@ namespace modules {
          */
         //% blockId="jacdac_leddisplay_rotate" block="rotate %display pixels by %offset" blockGap=8
         //% weight=39
-        //% parts="neopixel"
         rotate(offset = 1): void {
             offset = offset >> 0
             if (!offset) return
@@ -398,6 +449,12 @@ namespace modules {
             if (!pixels) return
             pixels.rotate(-offset * stride)
             this.setDirty()
+        }
+
+        private clear() {
+            const pixels = this._localPixels
+            if (!pixels) return
+            pixels.fill(0, 0, pixels.length)
         }
     }
 

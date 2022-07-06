@@ -40,7 +40,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%eco2 e CO2"
+        //% block="%eco2 e CO2 (ppm)"
         //% blockId=jacdac_eco2_e_CO2___get
         //% weight=100
         eCO2(): number {
@@ -100,7 +100,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_eco2_on_e_CO2_change
-        //% block="on %eco2 e CO2 changed by %threshold"
+        //% block="on %eco2 e CO2 changed by %threshold (ppm)"
         //% weight=95
         //% threshold.min=0
         //% threshold.max=8192
@@ -109,6 +109,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="e co21"
     export const eCO21 = new ECO2Client("e CO21")
 }

@@ -37,7 +37,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Biometric"
-        //% block="%heartrate heart rate"
+        //% block="%heartrate heart rate (bpm)"
         //% blockId=jacdac_heartrate_heart_rate___get
         //% weight=100
         heartRate(): number {
@@ -73,7 +73,7 @@ namespace modules {
          */
         //% group="Biometric"
         //% blockId=jacdac_heartrate_on_heart_rate_change
-        //% block="on %heartrate heart rate changed by %threshold"
+        //% block="on %heartrate heart rate changed by %threshold (bpm)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=200
@@ -82,6 +82,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="heart rate1"
     export const heartRate1 = new HeartRateClient("heart Rate1")
 }

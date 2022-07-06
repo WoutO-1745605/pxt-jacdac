@@ -6,6 +6,7 @@ namespace modules {
     export class ButtonClient extends jacdac.SimpleSensorClient {
         private readonly _analog: jacdac.RegisterClient<[boolean]>
         private _pressed: boolean = false
+        private _holdDuration: number = 0
 
         constructor(role: string) {
             super(jacdac.SRV_BUTTON, role, "u0.16")
@@ -25,10 +26,15 @@ namespace modules {
             switch (code) {
                 case jacdac.ButtonEvent.Up:
                     this._pressed = false
+                    this._holdDuration = pkt.intData
                     break
                 case jacdac.ButtonEvent.Hold:
+                    this._pressed = true
+                    this._holdDuration = pkt.intData
+                    break
                 case jacdac.ButtonEvent.Down:
                     this._pressed = true
+                    this._holdDuration = 0
                     break
             }
         }
@@ -38,8 +44,6 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Button"
-        //% block="%button pressure"
-        //% blockId=jacdac_button_pressure___get
         //% weight=100
         pressure(): number {
             return this.reading() * 100
@@ -77,8 +81,6 @@ namespace modules {
          * Run code when the pressure changes by the given threshold value.
          */
         //% group="Button"
-        //% blockId=jacdac_button_on_pressure_change
-        //% block="on %button pressure changed by %threshold"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100
@@ -96,6 +98,21 @@ namespace modules {
         //% weight=96
         onEvent(ev: jacdac.ButtonEvent, handler: () => void): void {
             this.registerEvent(ev, handler)
+        }
+
+        /**
+         * The latest reported hold duration when the button is down.
+         *
+         * The `down` and `hold` events also report the total hold duration in milliseconds.
+         * The value is the last hold duration while the button is up.
+         */
+        //% callInDebugger
+        //% group="Button"
+        //% block="%button hold duration (ms)"
+        //% blockId=jacdac_button_hold_duration_get
+        //% weight=95
+        holdDuration(): number {
+            return this._holdDuration
         }
 
         /**
@@ -128,4 +145,7 @@ namespace modules {
     }
     //% fixedInstance whenUsed weight=1 block="button1"
     export const button1 = new ButtonClient("button1")
+
+    //% fixedInstance whenUsed weight=2 block="button2"
+    export const button2 = new ButtonClient("button2")
 }

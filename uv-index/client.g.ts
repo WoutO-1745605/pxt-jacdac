@@ -30,7 +30,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%uvindex uv index"
+        //% block="%uvindex uv index (uv)"
         //% blockId=jacdac_uvindex_uv_index___get
         //% weight=100
         uvIndex(): number {
@@ -66,7 +66,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_uvindex_on_uv_index_change
-        //% block="on %uvindex uv index changed by %threshold"
+        //% block="on %uvindex uv index changed by %threshold (uv)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=11
@@ -75,6 +75,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="uv index1"
     export const uvIndex1 = new UvIndexClient("uv Index1")
 }

@@ -34,7 +34,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%soilmoisture moisture"
+        //% block="%soilmoisture moisture (\\%)"
         //% blockId=jacdac_soilmoisture_moisture___get
         //% weight=100
         moisture(): number {
@@ -70,7 +70,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_soilmoisture_on_moisture_change
-        //% block="on %soilmoisture moisture changed by %threshold"
+        //% block="on %soilmoisture moisture changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100
@@ -79,6 +79,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="soil moisture1"
     export const soilMoisture1 = new SoilMoistureClient("soil Moisture1")
 }
