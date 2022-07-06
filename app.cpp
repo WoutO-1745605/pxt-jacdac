@@ -205,7 +205,7 @@ void __physStart() {
 #ifdef MICROBIT_CODAL
 #if CONFIG_ENABLED(DEVICE_BLE) && CONFIG_ENABLED(JACDAC_BLE_TRANSPORT)
     jdble_init();
-    mbbridge_init();
+    //mbbridge_init();
 #else
     mbbridge_init();
 #endif
