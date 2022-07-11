@@ -117,6 +117,8 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
         {
             MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX);
             this->rxPointer = this->rxBuffer;
+            for (int i = 0; i < len(this->rxBuffer); i++)
+                DMESG("%c", this->rxBuffer[i]);
         }
     }
 
