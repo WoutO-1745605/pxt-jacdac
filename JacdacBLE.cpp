@@ -100,6 +100,7 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
                 DMESG("JD_BLE: pkt dropped.");
 
             this->rxPointer = this->rxBuffer;
+            DMESG("JD_BLE: rxPointer start %d", this->rxPointer);
             this->rxChunkCounter = params->data[0] & 0x7f; 
         }
 
@@ -109,6 +110,7 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
             DMESG("JD_BLE: Data out of order");
         else
         {
+            DMESG("JD_BLE: rxPointer pre copy %d", this->rxPointer);
             memcpy(this->rxPointer, &params->data[2], bytesWritten - JD_BLE_HEADER_SIZE);
             DMESG("JD_BLE: chunk received. (%d)", bytesWritten - JD_BLE_HEADER_SIZE);
             DMESG("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", params->data[0], params->data[1], this->rxPointer[0], this->rxPointer[1], this->rxPointer[2], this->rxPointer[3], this->rxPointer[4], this->rxPointer[5], this->rxPointer[6], this->rxPointer[7], this->rxPointer[8], this->rxPointer[9], this->rxPointer[10], this->rxPointer[11], this->rxPointer[12], this->rxPointer[13], this->rxPointer[14], this->rxPointer[15], this->rxPointer[16], this->rxPointer[17]);
