@@ -28,6 +28,7 @@
 class JacdacBLE : public MicroBitBLEService
 {
     uint8_t* rxBuffer;
+    uint8_t* _rxBuffer;
     uint8_t* txBuffer;
     uint8_t* diagBuffer;
     uint8_t* txPointer;

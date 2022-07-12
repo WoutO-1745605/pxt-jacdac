@@ -188,7 +188,7 @@ int JacdacBLE::send(uint8_t *buf, int length)
 
 
 ManagedBuffer JacdacBLE::read() {
-    return ManagedBuffer(rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->_rxBuffer));
+    return ManagedBuffer(_rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->_rxBuffer));
 }
 #endif // DEVICE_BLE
 #endif // MICROBIT_CODAL
