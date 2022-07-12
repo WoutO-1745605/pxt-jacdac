@@ -43,9 +43,10 @@ JacdacBLE::JacdacBLE(BLEDevice &_ble, uint8_t rxBufferSize, uint8_t txBufferSize
 {
     txBuffer = (uint8_t *)malloc(JACDAC_BLE_BUFFER_SIZE);
     rxBuffer = (uint8_t *)malloc(JACDAC_BLE_BUFFER_SIZE);
+    _rxBuffer = (uint8_t *)malloc(JACDAC_BLE_BUFFER_SIZE);
     diagBuffer = (uint8_t *)malloc(sizeof(jd_diagnostics_t));
 
-    rxPointer = rxBuffer;
+    rxPointer = _rxBuffer;
     txPointer = txBuffer;
 
     // Register the base UUID and create the service.
@@ -96,10 +97,10 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
         uint16_t bytesWritten = params->len;
 
         if (params->data[0] & JD_BLE_FIRST_CHUNK_FLAG) {
-            if (this->rxPointer > this->rxBuffer)
+            if (this->rxPointer > this->_rxBuffer)
                 DMESG("JD_BLE: pkt dropped.");
 
-            this->rxPointer = this->rxBuffer;
+            this->rxPointer = this->_rxBuffer;
             DMESG("JD_BLE: rxPointer start %d", this->rxPointer);
             this->rxChunkCounter = params->data[0] & 0x7f; 
         }
@@ -120,9 +121,9 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
         if (this->rxChunkCounter == 0)
         {
             MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX);
-            this->rxPointer = this->rxBuffer;
+            this->rxPointer = this->_rxBuffer;
             DMESG("JD_BLE: pkt received.");
-            DMESG("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", this->rxBuffer[0], this->rxBuffer[1], this->rxBuffer[2], this->rxBuffer[3], this->rxBuffer[4], this->rxBuffer[5], this->rxBuffer[6], this->rxBuffer[7], this->rxBuffer[8], this->rxBuffer[9], this->rxBuffer[10], this->rxBuffer[11], this->rxBuffer[12], this->rxBuffer[13], this->rxBuffer[14], this->rxBuffer[15], this->rxBuffer[16], this->rxBuffer[17], this->rxBuffer[18], this->rxBuffer[19], this->rxBuffer[20], this->rxBuffer[21], this->rxBuffer[22], this->rxBuffer[23], this->rxBuffer[24], this->rxBuffer[25], this->rxBuffer[26], this->rxBuffer[27], this->rxBuffer[28], this->rxBuffer[29], this->rxBuffer[30], this->rxBuffer[31], this->rxBuffer[32], this->rxBuffer[33], this->rxBuffer[34], this->rxBuffer[35], this->rxBuffer[36], this->rxBuffer[37], this->rxBuffer[38], this->rxBuffer[39], this->rxBuffer[40], this->rxBuffer[41], this->rxBuffer[42], this->rxBuffer[43], this->rxBuffer[44], this->rxBuffer[45], this->rxBuffer[46], this->rxBuffer[47], this->rxBuffer[48], this->rxBuffer[49]);
+            DMESG("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", this->_rxBuffer[0], this->_rxBuffer[1], this->_rxBuffer[2], this->_rxBuffer[3], this->_rxBuffer[4], this->_rxBuffer[5], this->_rxBuffer[6], this->_rxBuffer[7], this->_rxBuffer[8], this->_rxBuffer[9], this->_rxBuffer[10], this->_rxBuffer[11], this->_rxBuffer[12], this->_rxBuffer[13], this->_rxBuffer[14], this->_rxBuffer[15], this->_rxBuffer[16], this->_rxBuffer[17], this->_rxBuffer[18], this->_rxBuffer[19], this->_rxBuffer[20], this->_rxBuffer[21], this->_rxBuffer[22], this->_rxBuffer[23], this->_rxBuffer[24], this->_rxBuffer[25], this->_rxBuffer[26], this->_rxBuffer[27], this->_rxBuffer[28], this->_rxBuffer[29], this->_rxBuffer[30], this->_rxBuffer[31], this->_rxBuffer[32], this->_rxBuffer[33], this->_rxBuffer[34], this->_rxBuffer[35], this->_rxBuffer[36], this->_rxBuffer[37], this->_rxBuffer[38], this->_rxBuffer[39], this->_rxBuffer[40], this->_rxBuffer[41], this->_rxBuffer[42], this->_rxBuffer[43], this->_rxBuffer[44], this->_rxBuffer[45], this->_rxBuffer[46], this->_rxBuffer[47], this->_rxBuffer[48], this->_rxBuffer[49]);
         }
     }
 
@@ -187,7 +188,7 @@ int JacdacBLE::send(uint8_t *buf, int length)
 
 
 ManagedBuffer JacdacBLE::read() {
-    return ManagedBuffer(rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer));
+    return ManagedBuffer(rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->_rxBuffer));
 }
 #endif // DEVICE_BLE
 #endif // MICROBIT_CODAL
