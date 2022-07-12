@@ -118,7 +118,7 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
             MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX);
             this->rxPointer = this->rxBuffer;
             DMESG("JD_BLE: pkt received.");
-            DMESG("%d %d %d %d %d %d %d %d %d %d", this->rxBuffer[0], this->rxBuffer[1], this->rxBuffer[2], this->rxBuffer[3], this->rxBuffer[4], this->rxBuffer[5], this->rxBuffer[6], this->rxBuffer[7], this->rxBuffer[8], this->rxBuffer[9]);
+            DMESG("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", this->rxBuffer[0], this->rxBuffer[1], this->rxBuffer[2], this->rxBuffer[3], this->rxBuffer[4], this->rxBuffer[5], this->rxBuffer[6], this->rxBuffer[7], this->rxBuffer[8], this->rxBuffer[9], this->rxBuffer[10], this->rxBuffer[11], this->rxBuffer[12], this->rxBuffer[13], this->rxBuffer[14], this->rxBuffer[15], this->rxBuffer[16], this->rxBuffer[17], this->rxBuffer[18], this->rxBuffer[19]);
         }
     }
 
