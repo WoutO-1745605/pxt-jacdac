@@ -93,8 +93,8 @@ int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max, uint8_t 
 }
 
 extern "C" int app_handle_frame(jd_frame_t *frame) {
-    // DMESG("PKT t:%d fl:%x %d cmd=%x", (int)current_time_ms(), frame->flags,
-    //      ((jd_packet_t *)frame)->service_number, ((jd_packet_t *)frame)->service_command);
+    DMESG("PKT t:%d fl:%x %d cmd=%x", (int)current_time_ms(), frame->flags,
+         ((jd_packet_t *)frame)->service_number, ((jd_packet_t *)frame)->service_command);
 
     if (copyAndAppend(&rxQ, frame, MAX_RX) < 0) {
         return -1;
@@ -210,6 +210,7 @@ void __physStart() {
 #ifdef MICROBIT_CODAL
 #if CONFIG_ENABLED(DEVICE_BLE) && CONFIG_ENABLED(JACDAC_BLE_TRANSPORT)
     jdble_init();
+    //mbbridge_init();
 #else
     mbbridge_init();
 #endif
