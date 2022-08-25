@@ -43,9 +43,10 @@ JacdacBLE::JacdacBLE(BLEDevice &_ble, uint8_t rxBufferSize, uint8_t txBufferSize
 {
     txBuffer = (uint8_t *)malloc(JACDAC_BLE_BUFFER_SIZE);
     rxBuffer = (uint8_t *)malloc(JACDAC_BLE_BUFFER_SIZE);
+    _rxBuffer = (uint8_t *)malloc(JACDAC_BLE_BUFFER_SIZE);
     diagBuffer = (uint8_t *)malloc(sizeof(jd_diagnostics_t));
 
-    rxPointer = rxBuffer;
+    rxPointer = _rxBuffer;
     txPointer = txBuffer;
 
     // Register the base UUID and create the service.
@@ -96,10 +97,11 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
         uint16_t bytesWritten = params->len;
 
         if (params->data[0] & JD_BLE_FIRST_CHUNK_FLAG) {
-            if (this->rxPointer > this->rxBuffer)
+            if (this->rxPointer > this->_rxBuffer)
                 DMESG("JD_BLE: pkt dropped.");
 
-            this->rxPointer = this->rxBuffer;
+            this->rxPointer = this->_rxBuffer;
+            DMESG("JD_BLE: rxPointer start %d", this->rxPointer);
             this->rxChunkCounter = params->data[0] & 0x7f; 
         }
 
@@ -109,14 +111,19 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
             DMESG("JD_BLE: Data out of order");
         else
         {
+            DMESG("JD_BLE: rxPointer pre copy %d", this->rxPointer);
             memcpy(this->rxPointer, &params->data[2], bytesWritten - JD_BLE_HEADER_SIZE);
+            DMESG("JD_BLE: chunk received. (%d)", bytesWritten - JD_BLE_HEADER_SIZE);
+            DMESG("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", params->data[0], params->data[1], this->rxPointer[0], this->rxPointer[1], this->rxPointer[2], this->rxPointer[3], this->rxPointer[4], this->rxPointer[5], this->rxPointer[6], this->rxPointer[7], this->rxPointer[8], this->rxPointer[9], this->rxPointer[10], this->rxPointer[11], this->rxPointer[12], this->rxPointer[13], this->rxPointer[14], this->rxPointer[15], this->rxPointer[16], this->rxPointer[17]);
             this->rxPointer += bytesWritten - JD_BLE_HEADER_SIZE;
         }
 
         if (this->rxChunkCounter == 0)
         {
             MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX);
-            this->rxPointer = this->rxBuffer;
+            this->rxPointer = this->_rxBuffer;
+            DMESG("JD_BLE: pkt received.");
+            DMESG("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", this->_rxBuffer[0], this->_rxBuffer[1], this->_rxBuffer[2], this->_rxBuffer[3], this->_rxBuffer[4], this->_rxBuffer[5], this->_rxBuffer[6], this->_rxBuffer[7], this->_rxBuffer[8], this->_rxBuffer[9], this->_rxBuffer[10], this->_rxBuffer[11], this->_rxBuffer[12], this->_rxBuffer[13], this->_rxBuffer[14], this->_rxBuffer[15], this->_rxBuffer[16], this->_rxBuffer[17], this->_rxBuffer[18], this->_rxBuffer[19], this->_rxBuffer[20], this->_rxBuffer[21], this->_rxBuffer[22], this->_rxBuffer[23], this->_rxBuffer[24], this->_rxBuffer[25], this->_rxBuffer[26], this->_rxBuffer[27], this->_rxBuffer[28], this->_rxBuffer[29], this->_rxBuffer[30], this->_rxBuffer[31], this->_rxBuffer[32], this->_rxBuffer[33], this->_rxBuffer[34], this->_rxBuffer[35], this->_rxBuffer[36], this->_rxBuffer[37], this->_rxBuffer[38], this->_rxBuffer[39], this->_rxBuffer[40], this->_rxBuffer[41], this->_rxBuffer[42], this->_rxBuffer[43], this->_rxBuffer[44], this->_rxBuffer[45], this->_rxBuffer[46], this->_rxBuffer[47], this->_rxBuffer[48], this->_rxBuffer[49]);
         }
     }
 
@@ -181,7 +188,7 @@ int JacdacBLE::send(uint8_t *buf, int length)
 
 
 ManagedBuffer JacdacBLE::read() {
-    return ManagedBuffer(rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer));
+    return ManagedBuffer(_rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->_rxBuffer));
 }
 #endif // DEVICE_BLE
 #endif // MICROBIT_CODAL
