@@ -236,6 +236,10 @@ namespace jacdac {
                 )
                 for (const cc of this.unattachedClients) {
                     if (cc.serviceClass == serviceClass) {
+                        console.add(
+                            jacdac.logPriority,
+                            `reattach: ${cc.role} -> ${dev.shortId}:${i >> 2}`
+                        )
                         if (cc._attach(dev, serviceClass, i >> 2)) break
                     }
                 }
@@ -840,12 +844,9 @@ namespace jacdac {
             if (sn == null || this.pkts.length == 0) return
             let hasNonSet = false
             for (const p of this.pkts) {
-                p[1] = sn
                 if (p[3] >> 4 != CMD_SET_REG >> 12) hasNonSet = true
+                this.parent.sendCommand(JDPacket.fromFrameless(p))
             }
-            const pkt = JDPacket.onlyHeader(0)
-            pkt.compress(this.pkts)
-            this.parent.sendCommand(pkt)
             // after re-sending only leave set_reg packets
             if (hasNonSet)
                 this.pkts = this.pkts.filter(

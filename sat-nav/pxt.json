@@ -1,22 +1,21 @@
 {
-    "name": "jacdac-distance",
+    "name": "jacdac-sat-nav",
     "version": "1.8.20",
-    "description": "A sensor that determines the distance of an object without any physical contact involved.",
+    "description": "A satellite-based navigation system like GPS, Gallileo, ...",
     "files": [
         "constants.ts",
         "client.g.ts"
     ],
-    "testFiles": [],
+    "testFiles": [
+        "test.ts"
+    ],
     "supportedTargets": [
-        "arcade",
         "microbit",
+        "arcade",
         "maker"
     ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
     }
 }
